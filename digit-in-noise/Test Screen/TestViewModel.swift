@@ -11,11 +11,30 @@ class TestViewModel {
     
     private var score: Int = 0
     
-    func currentTriplet() -> (Int, Int, Int) {
-        return (0, 0, 0)
+    
+    // MARK: - Getters
+    
+    var getCurrentTriplet: String {
+        return "000"
     }
     
-    func currentDifficulty() -> Int {
+    var getCurrentDifficulty: Int {
+        return 0
+    }
+    
+    // MARK: - Methods
+    
+    func submitAnswer(answer: String) {
+        
+    }
+    
+    // MARK: Private
+    
+    private func generateTriplet() -> [Int] {
+        return []
+    }
+    
+    private func generateDifficulty() -> Int {
         return 0
     }
 }
