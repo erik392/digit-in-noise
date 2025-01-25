@@ -33,7 +33,7 @@
 		D4DE41592D45294A006DC50A /* Exceptions for "digit-in-noise" folder in "digit-in-noise" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Config/Info.plist,
 			);
 			target = D4DE412D2D452948006DC50A /* digit-in-noise */;
 		};
@@ -51,11 +51,6 @@
 		D4DE414A2D45294A006DC50A /* digit-in-noiseTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "digit-in-noiseTests";
-			sourceTree = "<group>";
-		};
-		D4DE41542D45294A006DC50A /* digit-in-noiseUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "digit-in-noiseUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -90,7 +85,6 @@
 			children = (
 				D4DE41302D452948006DC50A /* digit-in-noise */,
 				D4DE414A2D45294A006DC50A /* digit-in-noiseTests */,
-				D4DE41542D45294A006DC50A /* digit-in-noiseUITests */,
 				D4DE412F2D452948006DC50A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -165,9 +159,6 @@
 			);
 			dependencies = (
 				D4DE41532D45294A006DC50A /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				D4DE41542D45294A006DC50A /* digit-in-noiseUITests */,
 			);
 			name = "digit-in-noiseUITests";
 			packageProductDependencies = (
@@ -291,10 +282,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SDYZ3ZAXJL;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "digit-in-noise/Info.plist";
+				INFOPLIST_FILE = "digit-in-noise/Config/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = LandingScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -319,10 +310,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SDYZ3ZAXJL;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "digit-in-noise/Info.plist";
+				INFOPLIST_FILE = "digit-in-noise/Config/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = LandingScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
