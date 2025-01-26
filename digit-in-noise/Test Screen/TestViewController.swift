@@ -6,11 +6,17 @@
 //
 
 import UIKit
+import AVFoundation
 
 class TestViewController: UIViewController {
     
     @IBOutlet var roundNumberLabel: UILabel!
     @IBOutlet var answerInputField: UITextField!
+    
+    var noisePlayer: AVAudioPlayer?
+    var digitPlayer: AVAudioPlayer?
+    var noiseTimer: Timer?
+    var digitTimer: Timer?
     
     private lazy var viewModel = TestViewModel(delegate: self)
     
@@ -27,6 +33,30 @@ class TestViewController: UIViewController {
     @IBAction func exitButtonPressed(_ sender: UIButton) {
         navigationController?.popToRootViewController(animated: true)
     }
+    
+    @objc func noiseTimerEnded() {
+        playNoise()
+        //startTimer2(duration: 1.5)
+    }
+    
+    private func startNoiseTimer(duration: TimeInterval) {
+        noiseTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(noiseTimerEnded), userInfo: nil, repeats: false)
+    }
+    
+    private func playNoise() {
+        guard let noiseFileName = viewModel.getNoiseFileName, let soundURL = Bundle.main.url(forResource: noiseFileName, withExtension: "m4a") else {
+            showError("Noise file not found.")
+            return
+        }
+        
+        do {
+            noisePlayer = try AVAudioPlayer(contentsOf: soundURL)
+            
+            noisePlayer?.play()
+        } catch {
+            showError("Error playing noise: \(error.localizedDescription)")
+        }
+    }
 }
 
 // MARK: - Delegate
@@ -36,6 +66,8 @@ extension TestViewController: TestViewModelDelegate {
     func loadRound() {
         roundNumberLabel.text = "Round Number: \(viewModel.getRoundNumber)"
         answerInputField.text = nil
+        startNoiseTimer(duration: viewModel.getRoundNumber == 1 ? 3 : 2)
+        
 //        print(viewModel.getCurrentDifficulty)
 //        print(viewModel.getCurrentTriplet)
         
@@ -53,3 +85,4 @@ extension TestViewController: TestViewModelDelegate {
         }
     }
 }
+
