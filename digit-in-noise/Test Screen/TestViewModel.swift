@@ -52,6 +52,7 @@ class TestViewModel {
     func submitAnswer(answer: String) {
         if rounds.count > 0 {
             rounds[rounds.count - 1].tripletAnswered = answer
+            score += rounds[rounds.count - 1].isCorrectAnswer ? rounds[rounds.count - 1].difficulty : 0
         }
     }
     
