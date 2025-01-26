@@ -7,11 +7,22 @@
 
 import Foundation
 
+protocol TestViewModelDelegate: AnyObject {
+    
+    func loadRound()
+    func showResults(_ score: Int)
+    func showError(_ error: String)
+}
+
 class TestViewModel {
     
     private var score: Int = 0
     private var rounds: [TestRound] = []
+    private weak var delegate: TestViewModelDelegate?
     
+    init(delegate: TestViewModelDelegate?) {
+        self.delegate = delegate
+    }
     
     // MARK: - Getters
     
@@ -23,16 +34,19 @@ class TestViewModel {
         return rounds.last?.difficulty
     }
     
-    
+    var getRoundNumber: Int {
+        return rounds.count
+    }
     
     // MARK: - Methods
     
     func generateRound() {
         guard rounds.count < 10 else {
-            //showResults()
+            delegate?.showResults(score)
             return
         }
         rounds.append(TestRound(difficulty: generateDifficulty(), tripletPlayed: generateTriplet()))
+        delegate?.loadRound()
     }
     
     func submitAnswer(answer: String) {
