@@ -17,6 +17,7 @@ class TestViewController: UIViewController {
     var digitPlayer: AVAudioPlayer?
     var noiseTimer: Timer?
     var digitTimer: Timer?
+    var currentDigitIndex: Int = 0
     
     private lazy var viewModel = TestViewModel(delegate: self)
     
@@ -27,6 +28,7 @@ class TestViewController: UIViewController {
 
     @IBAction func submitButtonPressed(_ sender: UIButton) {
         viewModel.submitAnswer(answer: answerInputField.text ?? "")
+        currentDigitIndex = 0
         viewModel.generateRound()
     }
     
@@ -36,11 +38,22 @@ class TestViewController: UIViewController {
     
     @objc func noiseTimerEnded() {
         playNoise()
-        //startTimer2(duration: 1.5)
+        startDigitTimer(duration: 2.5)
+    }
+    
+    @objc func startNextPlayback() {
+        guard currentDigitIndex < 3 else { return }
+        playDigit(filename: viewModel.getCurrentTripletFilenames[currentDigitIndex])
+        currentDigitIndex += 1
+        startDigitTimer(duration: 2)
     }
     
     private func startNoiseTimer(duration: TimeInterval) {
         noiseTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(noiseTimerEnded), userInfo: nil, repeats: false)
+    }
+    
+    private func startDigitTimer(duration: TimeInterval) {
+        digitTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(startNextPlayback), userInfo: nil, repeats: false)
     }
     
     private func playNoise() {
@@ -51,10 +64,23 @@ class TestViewController: UIViewController {
         
         do {
             noisePlayer = try AVAudioPlayer(contentsOf: soundURL)
-            
             noisePlayer?.play()
         } catch {
             showError("Error playing noise: \(error.localizedDescription)")
+        }
+    }
+    
+    private func playDigit(filename: String) {
+        guard let soundURL = Bundle.main.url(forResource: filename, withExtension: "m4a") else {
+            showError("Digit file not found.")
+            return
+        }
+        
+        do {
+            digitPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            digitPlayer?.play()
+        } catch {
+            print("Error playing digit: \(error.localizedDescription)")
         }
     }
 }
@@ -67,10 +93,6 @@ extension TestViewController: TestViewModelDelegate {
         roundNumberLabel.text = "Round Number: \(viewModel.getRoundNumber)"
         answerInputField.text = nil
         startNoiseTimer(duration: viewModel.getRoundNumber == 1 ? 3 : 2)
-        
-//        print(viewModel.getCurrentDifficulty)
-//        print(viewModel.getCurrentTriplet)
-        
     }
     
     func showResults(_ score: Int) {

@@ -30,6 +30,10 @@ class TestViewModel {
         return rounds.last?.tripletPlayed.toTripletString()
     }
     
+    var getCurrentTripletFilenames: [String] {
+        return rounds.last?.tripletPlayed.toNoiseFilesNames() ?? []
+    }
+    
     var getCurrentDifficulty: Int? {
         return rounds.last?.difficulty
     }
