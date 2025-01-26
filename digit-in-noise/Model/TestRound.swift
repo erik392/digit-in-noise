@@ -13,11 +13,7 @@ struct TestRound {
     
     // MARK: - Computed Properties
     
-    var tripletPlayedStringValue: String {
-        return tripletPlayed.map{ String($0) }.joined()
-    }
-    
     var isCorrectAnswer: Bool {
-        return tripletPlayedStringValue == tripletAnswered ?? ""
+        return tripletPlayed.toTripletString() == tripletAnswered ?? ""
     }
 }

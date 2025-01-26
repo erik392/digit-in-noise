@@ -27,11 +27,19 @@ class TestViewModel {
     // MARK: - Getters
     
     var getCurrentTriplet: String? {
-        return rounds.last?.tripletPlayedStringValue
+        return rounds.last?.tripletPlayed.toTripletString()
+    }
+    
+    var getCurrentTripletFilenames: [String] {
+        return rounds.last?.tripletPlayed.toNoiseFilesNames() ?? []
     }
     
     var getCurrentDifficulty: Int? {
         return rounds.last?.difficulty
+    }
+    
+    var getNoiseFileName: String? {
+        return rounds.last?.difficulty.toNoiseFileName()
     }
     
     var getRoundNumber: Int {
@@ -68,7 +76,7 @@ class TestViewModel {
     
     private func generateDifficulty() -> Int {
         guard let lastRound = rounds.last else { return 5 }
-        if lastRound.tripletPlayedStringValue == lastRound.tripletAnswered {
+        if lastRound.tripletPlayed.toTripletString() == lastRound.tripletAnswered {
             return min(lastRound.difficulty + 1, 10)
         } else {
             return max(lastRound.difficulty - 1, 1)
