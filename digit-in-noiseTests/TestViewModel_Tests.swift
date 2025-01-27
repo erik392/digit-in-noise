@@ -14,7 +14,8 @@ final class digit_in_noiseTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        viewModelUnderTest = TestViewModel()
+        viewModelUnderTest = TestViewModel(delegate: MockDelegate(),
+                                           respository: MockRepository())
     }
     
     override func tearDown() {
@@ -94,4 +95,28 @@ final class digit_in_noiseTests: XCTestCase {
         let incorrectAnswer = "000"
         viewModelUnderTest.submitAnswer(answer: incorrectAnswer)
     }
+}
+
+private class MockDelegate: TestViewModelDelegate {
+    
+    var loadRoundCallback: (() -> Void)?
+    var showResultsCallback: (() -> Void)?
+    var showErrorCallback: (() -> Void)?
+    
+    func loadRound() {
+        loadRoundCallback?()
+    }
+    
+    func showResults(_ message: String) {
+        showResultsCallback?()
+    }
+    
+    func showError(_ error: String) {
+        showErrorCallback?()
+    }
+}
+
+private class MockRepository: UploadResultsRepositoryType {
+    
+    func sendResults(results: digit_in_noise.TestResultsModel, completion: @escaping (digit_in_noise.UploadTestResultsResult)) { }
 }

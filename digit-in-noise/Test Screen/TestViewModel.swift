@@ -70,11 +70,14 @@ class TestViewModel {
     // MARK: Private
     
     private func generateTriplet() -> [Int] {
-        return (0..<3).map { index in
+        let tripletGenerated: [Int] = (0..<3).map { index in
             let excludedNumber = rounds.last?.tripletPlayed[index]
             let possibleNumbers = (1...9).filter { $0 != excludedNumber }
             return possibleNumbers.randomElement()!
         }
+        
+        guard rounds.filter({ $0.tripletPlayed == tripletGenerated }).isEmpty else { return generateTriplet() }
+        return tripletGenerated
     }
     
     private func generateDifficulty() -> Int {
