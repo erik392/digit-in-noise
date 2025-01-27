@@ -20,30 +20,13 @@
                                 <rect key="frame" x="16" y="59" width="361" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="t6S-hv-vNG" customClass="ScoreTableViewCell" customModule="digit_in_noise" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScoreCell" id="t6S-hv-vNG" customClass="ScoreTableViewCell" customModule="digit_in_noise" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="361" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t6S-hv-vNG" id="K8a-AE-dec">
                                             <rect key="frame" x="0.0" y="0.0" width="361" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iEn-hd-77L">
-                                                    <rect key="frame" x="20" y="11.000000000000002" width="321" height="21.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="iEn-hd-77L" firstAttribute="top" secondItem="K8a-AE-dec" secondAttribute="topMargin" id="0gb-3L-gCQ"/>
-                                                <constraint firstItem="iEn-hd-77L" firstAttribute="leading" secondItem="K8a-AE-dec" secondAttribute="leadingMargin" id="40f-fg-BLk"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="iEn-hd-77L" secondAttribute="bottom" id="6j1-CY-vjb"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="iEn-hd-77L" secondAttribute="trailing" id="Eib-6z-SSb"/>
-                                            </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="scoreLabel" destination="iEn-hd-77L" id="vwH-gh-OGP"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -57,6 +40,9 @@
                             <constraint firstItem="G3p-Gj-iqp" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="vsJ-Zh-2QF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="scoreTableView" destination="G3p-Gj-iqp" id="0hc-p7-Twd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
