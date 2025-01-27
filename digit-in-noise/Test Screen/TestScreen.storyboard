@@ -66,6 +66,7 @@
                     <connections>
                         <outlet property="answerInputField" destination="MnO-Oh-8SU" id="ztu-ph-7NL"/>
                         <outlet property="roundNumberLabel" destination="4HW-po-IjA" id="Nkp-uO-B8n"/>
+                        <outlet property="submitButton" destination="U0T-O5-dzX" id="szS-QO-PEP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
