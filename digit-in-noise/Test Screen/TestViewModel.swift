@@ -10,18 +10,21 @@ import Foundation
 protocol TestViewModelDelegate: AnyObject {
     
     func loadRound()
-    func showResults(_ score: Int)
+    func showResults(_ message: String)
     func showError(_ error: String)
 }
 
 class TestViewModel {
     
+    private var repository: UploadResultsRepositoryType
+    private weak var delegate: TestViewModelDelegate?
     private var score: Int = 0
     private var rounds: [TestRound] = []
-    private weak var delegate: TestViewModelDelegate?
     
-    init(delegate: TestViewModelDelegate?) {
+    init(delegate: TestViewModelDelegate,
+         respository: UploadResultsRepositoryType) {
         self.delegate = delegate
+        self.repository = respository
     }
     
     // MARK: - Getters
@@ -50,7 +53,7 @@ class TestViewModel {
     
     func generateRound() {
         guard rounds.count < 10 else {
-            delegate?.showResults(score)
+            uploadTestResults()
             return
         }
         rounds.append(TestRound(difficulty: generateDifficulty(), tripletPlayed: generateTriplet()))
@@ -81,5 +84,30 @@ class TestViewModel {
         } else {
             return max(lastRound.difficulty - 1, 1)
         }
+    }
+    
+    private func uploadTestResults() {
+        repository.sendResults(
+            results: formatTestResults(score: score, testRounds: rounds),
+            completion: { [weak self] result in
+                switch result {
+                case .success:
+                    self?.delegate?.showResults("Result Upload Successful.\n You Scored: \(self?.score ?? 0)")
+                case .failure(let error):
+                    self?.delegate?.showResults("Result Upload Unsuccessful.\n You Scored: \(self?.score ?? 0)")
+                }
+            })
+    }
+    
+    private func formatTestResults(score: Int, testRounds: [TestRound]) -> TestResultsModel {
+        let rounds = testRounds.map { testRound -> RoundModel in
+            return RoundModel(
+                difficulty: testRound.difficulty,
+                tripletPlayed: testRound.tripletPlayed.toTripletString(),
+                tripletAnswered: testRound.tripletAnswered
+            )
+        }
+        
+        return TestResultsModel(score: score, rounds: rounds)
     }
 }

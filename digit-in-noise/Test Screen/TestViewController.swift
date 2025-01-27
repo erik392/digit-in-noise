@@ -19,7 +19,8 @@ class TestViewController: UIViewController {
     var digitTimer: Timer?
     var currentDigitIndex: Int = 0
     
-    private lazy var viewModel = TestViewModel(delegate: self)
+    private lazy var viewModel = TestViewModel(delegate: self,
+                                               respository: UploadResultsRepository())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,8 +96,8 @@ extension TestViewController: TestViewModelDelegate {
         startNoiseTimer(duration: viewModel.getRoundNumber == 1 ? 3 : 2)
     }
     
-    func showResults(_ score: Int) {
-        showAlert(title: "Test Complete", message: "You scored \(score)!", button: "OK") {
+    func showResults(_ message: String) {
+        showAlert(title: "Test Complete", message: message, button: "OK") {
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
