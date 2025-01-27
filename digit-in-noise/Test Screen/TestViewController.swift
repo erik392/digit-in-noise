@@ -24,6 +24,7 @@ class TestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        answerInputField.delegate = self
         viewModel.generateRound()
     }
 
@@ -109,3 +110,14 @@ extension TestViewController: TestViewModelDelegate {
     }
 }
 
+// MARK: - UITextFieldDelegate
+
+extension TestViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowedCharacters = "123456789"
+        let characterSet = CharacterSet(charactersIn: allowedCharacters)
+        let inputCharacterSet = CharacterSet(charactersIn: string)
+        return characterSet.isSuperset(of: inputCharacterSet)
+    }
+}
