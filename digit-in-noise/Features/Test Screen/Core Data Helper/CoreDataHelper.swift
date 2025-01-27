@@ -28,7 +28,7 @@ class CoreDataHelper {
             roundObjects.append(round)
         }
         
-        scoreModel.rounds = NSSet(array: roundObjects)
+        scoreModel.rounds = NSOrderedSet(array: roundObjects)
 
         do {
             try context.save()

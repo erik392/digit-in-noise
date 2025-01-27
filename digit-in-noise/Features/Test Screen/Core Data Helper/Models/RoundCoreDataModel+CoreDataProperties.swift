@@ -19,6 +19,7 @@ extension RoundCoreDataModel {
     @NSManaged public var difficulty: Int16
     @NSManaged public var tripletPlayed: String?
     @NSManaged public var tripletSubmitted: String?
+    @NSManaged public var result: ResultsCoreDataModel?
 
 }
 

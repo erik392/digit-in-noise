@@ -2,11 +2,12 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24A348" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ResultsCoreDataModel" representedClassName=".ResultsCoreDataModel" syncable="YES">
         <attribute name="score" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="rounds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RoundCoreDataModel"/>
+        <relationship name="rounds" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RoundCoreDataModel" inverseName="result" inverseEntity="RoundCoreDataModel"/>
     </entity>
     <entity name="RoundCoreDataModel" representedClassName=".RoundCoreDataModel" syncable="YES">
         <attribute name="difficulty" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="tripletPlayed" attributeType="String"/>
         <attribute name="tripletSubmitted" attributeType="String"/>
+        <relationship name="result" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ResultsCoreDataModel" inverseName="rounds" inverseEntity="ResultsCoreDataModel"/>
     </entity>
 </model>

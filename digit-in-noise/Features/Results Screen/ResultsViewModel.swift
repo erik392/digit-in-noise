@@ -33,6 +33,10 @@ class ResultsViewModel {
         Int(scoreModels[atIndex].score)
     }
     
+    func rounds(atIndex: Int) -> [RoundCoreDataModel] {
+        return scoreModels[atIndex].rounds?.array as? [RoundCoreDataModel] ?? []
+    }
+    
     // MARK: - Methods
     
     func fetchScoreModels() {

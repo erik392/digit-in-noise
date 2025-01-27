@@ -21,6 +21,13 @@ class ResultsViewController: UIViewController {
         scoreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "ScoreCell")
         viewModel.fetchScoreModels()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ResultDetailsViewController {
+            guard let resultIndex = scoreTableView.indexPathForSelectedRow?.row else { return }
+            destination.setRounds(results: viewModel.rounds(atIndex: resultIndex))
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -35,6 +42,10 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScoreCell", for: indexPath)
         cell.textLabel?.text = "Score: \(viewModel.score(atIndex: indexPath.row))"
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToDetailsView", sender: self)
     }
 }
 

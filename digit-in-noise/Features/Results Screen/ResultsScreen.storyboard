@@ -42,11 +42,22 @@
                     </view>
                     <connections>
                         <outlet property="scoreTableView" destination="G3p-Gj-iqp" id="0hc-p7-Twd"/>
+                        <segue destination="hlR-Eq-fBh" kind="show" identifier="goToDetailsView" id="WlP-rQ-s0B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139.69465648854961" y="3.5211267605633805"/>
+        </scene>
+        <!--ResultDetailsScreen-->
+        <scene sceneID="vJx-j1-MAb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ResultDetailsScreen" id="hlR-Eq-fBh" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Uh7-yB-2rB"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zdD-kB-bV2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="935" y="3"/>
         </scene>
     </scenes>
     <resources>
