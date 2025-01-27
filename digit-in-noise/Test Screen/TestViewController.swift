@@ -31,6 +31,7 @@ class TestViewController: UIViewController {
     }
 
     @IBAction func submitButtonPressed(_ sender: UIButton) {
+        guard (answerInputField.text ?? "").count == 3 else { return }
         viewModel.submitAnswer(answer: answerInputField.text ?? "")
         currentDigitIndex = 0
         submitButton.isEnabled = false
