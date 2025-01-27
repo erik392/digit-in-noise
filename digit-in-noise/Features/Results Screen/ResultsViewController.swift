@@ -6,32 +6,43 @@
 //
 
 import UIKit
+import CoreData
 
 class ResultsViewController: UIViewController {
     
     @IBOutlet weak var scoreTableView: UITableView!
     
-    let scores = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    private lazy var viewModel = ResultsViewModel(delegate: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scoreTableView.dataSource = self
         scoreTableView.delegate = self
         scoreTableView.register(UITableViewCell.self, forCellReuseIdentifier: "ScoreCell")
+        viewModel.fetchScoreModels()
     }
 }
 
-// MARK: - UITableViewDataSource Methods
+// MARK: - UITableViewDataSource
 
 extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return scores.count
+        return viewModel.scoreCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScoreCell", for: indexPath)
-        cell.textLabel?.text = "Score: \(scores[indexPath.row])"
+        cell.textLabel?.text = "Score: \(viewModel.score(atIndex: indexPath.row))"
         return cell
+    }
+}
+
+// MARK: - ResultsViewModelDelegate
+
+extension ResultsViewController: ResultsViewModelDelegate {
+    
+    func reloadView() {
+        scoreTableView.reloadData()
     }
 }

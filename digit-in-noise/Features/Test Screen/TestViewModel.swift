@@ -53,6 +53,7 @@ class TestViewModel {
     
     func generateRound() {
         guard rounds.count < 10 else {
+            saveTestResults()
             uploadTestResults()
             return
         }
@@ -89,6 +90,10 @@ class TestViewModel {
         }
     }
     
+    private func saveTestResults() {
+        CoreDataHelper.shared.saveResults(results: formatTestResults(score: score, testRounds: rounds))
+    }
+    
     private func uploadTestResults() {
         repository.sendResults(
             results: formatTestResults(score: score, testRounds: rounds),
@@ -96,7 +101,7 @@ class TestViewModel {
                 switch result {
                 case .success:
                     self?.delegate?.showResults("Result Upload Successful.\n You Scored: \(self?.score ?? 0)")
-                case .failure(let error):
+                case .failure(_):
                     self?.delegate?.showResults("Result Upload Unsuccessful.\n You Scored: \(self?.score ?? 0)")
                 }
             })
