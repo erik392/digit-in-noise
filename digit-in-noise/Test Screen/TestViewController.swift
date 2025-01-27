@@ -12,6 +12,7 @@ class TestViewController: UIViewController {
     
     @IBOutlet var roundNumberLabel: UILabel!
     @IBOutlet var answerInputField: UITextField!
+    @IBOutlet var submitButton: UIButton!
     
     var noisePlayer: AVAudioPlayer?
     var digitPlayer: AVAudioPlayer?
@@ -24,12 +25,16 @@ class TestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        answerInputField.delegate = self
+        submitButton.isEnabled = false
         viewModel.generateRound()
     }
 
     @IBAction func submitButtonPressed(_ sender: UIButton) {
+        guard (answerInputField.text ?? "").count == 3 else { return }
         viewModel.submitAnswer(answer: answerInputField.text ?? "")
         currentDigitIndex = 0
+        submitButton.isEnabled = false
         viewModel.generateRound()
     }
     
@@ -79,6 +84,7 @@ class TestViewController: UIViewController {
         
         do {
             digitPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            noisePlayer?.delegate = self
             digitPlayer?.play()
         } catch {
             print("Error playing digit: \(error.localizedDescription)")
@@ -109,3 +115,23 @@ extension TestViewController: TestViewModelDelegate {
     }
 }
 
+// MARK: - UITextFieldDelegate
+
+extension TestViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowedCharacters = "123456789"
+        let characterSet = CharacterSet(charactersIn: allowedCharacters)
+        let inputCharacterSet = CharacterSet(charactersIn: string)
+        return characterSet.isSuperset(of: inputCharacterSet)
+    }
+}
+
+extension TestViewController: AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+            if player == noisePlayer {
+                submitButton.isEnabled = true
+            }
+        }
+}
